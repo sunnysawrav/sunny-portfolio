@@ -46,6 +46,13 @@ const showreel=[
 ];
 const contact={email:"sunnysawrav@gmail.com",phone:"+91-7892378521",linkedin:"https://www.linkedin.com/in/sunnysawrav/",instagram:"https://www.instagram.com/sunnysawrav/",facebook:"http://www.facebook.com/sunnysawrav",twitter:"http://www.twitter.com/helldoom"};
 
+const FEATURED_FALLBACK = [
+  {_id:"f1", title:"A lullaby for the missing", vid:"AsvbWOmvBbg", embed:"https://www.youtube.com/embed/AsvbWOmvBbg", type:"Short Film", year:"2022", desc:"An evocative short film exploring loss, memory, and the spaces between.", award:"Best Short Film – Festival Selection"},
+  {_id:"f2", title:"3Devi - Final Trailer", vid:"DeNuCn4ATy8", embed:"https://www.youtube.com/embed/DeNuCn4ATy8", type:"Feature Film", year:"2021", desc:"Official trailer for the critically acclaimed feature film 3Devi.", award:""},
+  {_id:"f3", title:"A Love Song for Goddesses", vid:"KIqpvVtIWNA", embed:"https://www.youtube.com/embed/KIqpvVtIWNA", type:"Music Video", year:"2020", desc:"A cinematic music video blending mythology, dance, and stunning visuals.", award:""},
+  {_id:"f4", title:"Heretic - Thoughts", vid:"RZREe_vEH1g", embed:"https://www.youtube.com/embed/RZREe_vEH1g", type:"Documentary", year:"2023", desc:"A thought-provoking documentary capturing candid perspectives on belief and doubt.", award:""},
+];
+
 // ── ICONS ─────────────────────────────────────────────────────────────────────
 const Ico=({d,size=20})=><svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={d}/></svg>;
 const FilmIco=()=><Ico size={16} d="M2 2h20v20H2zM7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/>;
@@ -66,13 +73,13 @@ const SmPlayIco=()=><svg width="36" height="36" viewBox="0 0 24 24" fill="#d4a57
 const NODES=[
   {id:"about",       label:"About",        color:0xcc99ff, shape:"sphere",     pos:[0,0,0],      scale:1.6},
   {id:"featured",    label:"Featured",     color:0x99ffff, shape:"box",        pos:[8,2,-4],     scale:1.4},
-  {id:"showreel",    label:"Showreel",     color:0xff99ff, shape:"cylinder",   pos:[9,0,2],      scale:1.1},
+  {id:"showreel",    label:"Showreel",     color:0xff99ff, shape:"box",        pos:[9,0,2],      scale:1.1},
   {id:"experience",  label:"Experience",   color:0xb87d4b, shape:"cone",       pos:[6,-3,6],     scale:1.1},
-  {id:"skills",      label:"Skills",       color:0xff9999, shape:"torus",      pos:[-6,-2,6],    scale:1.0},
-  {id:"achievements",label:"Achievements", color:0xffd700, shape:"octahedron", pos:[0,5,8],      scale:1.2},
-  {id:"gallery",     label:"Gallery",      color:0xa0785a, shape:"box",        pos:[-9,3,2],     scale:0.9},
-  {id:"random",      label:"GameSlime",    color:0xb3ff99, shape:"sphere",     pos:[-8,1,-4],    scale:1.0},
-  {id:"contact",     label:"Contact",      color:0xd4a574, shape:"torus",      pos:[0,-5,4],     scale:0.9},
+  {id:"skills",      label:"Skills",       color:0xff9999, shape:"cylinder",   pos:[-6,-2,6],    scale:1.0},
+  {id:"achievements",label:"Achievements", color:0xffd700, shape:"cone",       pos:[0,5,8],      scale:1.2},
+  {id:"gallery",     label:"Gallery",      color:0xa0785a, shape:"torus",      pos:[-9,3,2],     scale:0.9},
+  {id:"random",      label:"GameSlime",    color:0xb3ff99, shape:"octahedron", pos:[-8,1,-4],    scale:1.0},
+  {id:"contact",     label:"Contact",      color:0xd4a574, shape:"sphere",     pos:[0,-5,4],     scale:0.9},
 ];
 
 // ── CSS ───────────────────────────────────────────────────────────────────────
@@ -247,7 +254,95 @@ footer{background:var(--bg);border-top:1px solid var(--bdr);padding:3rem 2rem;te
 @media(max-width:1024px){.tl::before{left:1.5rem;}.tli:nth-child(odd) .tlc,.tli:nth-child(even) .tlc{margin-left:4rem;margin-right:0;}.tlm{left:1.5rem;}}
 @media(max-width:768px){.sec{padding:4rem 1.5rem;}.fg{grid-template-columns:1fr;}.skg,.ag,.gs-grid{grid-template-columns:1fr;}.ctas{flex-direction:column;width:100%;}.bp,.bs{width:100%;}.stats{gap:2rem;}.sn{font-size:2.5rem;}.classic-links{gap:.75rem;}.classic-links button{font-size:.68rem;}.toggle-label{display:none;}}
 @media(max-width:480px){.classic-links{display:none;}}
+
+/* ── LOADING SCREEN ── */
+.loader-wrap{position:fixed;inset:0;z-index:1000;background:#0a0a0a;display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;overflow:hidden;}
+.loader-wrap.loader-enter{animation:loaderFadeIn .4s ease forwards;}
+.loader-wrap.loader-exit{animation:loaderFadeOut .7s ease forwards;pointer-events:none;}
+@keyframes loaderFadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes loaderFadeOut{from{opacity:1;}to{opacity:0;}}
+.loader-strip{display:flex;align-items:center;padding:.6rem 0;background:#111;border-top:1px solid rgba(212,165,116,.15);border-bottom:1px solid rgba(212,165,116,.15);overflow:hidden;gap:1.2rem;animation:stripScroll 4s linear infinite;}
+.loader-strip.bottom{animation-direction:reverse;}
+@keyframes stripScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.sprocket{flex-shrink:0;width:22px;height:14px;border-radius:3px;border:1.5px solid rgba(212,165,116,.35);background:rgba(212,165,116,.07);}
+.loader-centre{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;}
+.loader-frame{text-align:center;animation:loaderContentIn .6s .15s ease both;}
+@keyframes loaderContentIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.loader-initials{display:inline-block;font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;color:transparent;-webkit-text-stroke:1.5px rgba(212,165,116,.7);letter-spacing:.15em;line-height:1;margin-bottom:1.2rem;}
+.loader-name{font-family:'Montserrat',sans-serif;font-size:clamp(.9rem,3vw,1.3rem);font-weight:700;letter-spacing:.45em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;}
+.loader-role{font-family:'Lato',sans-serif;font-size:clamp(.75rem,2vw,.95rem);color:var(--muted);letter-spacing:.15em;margin-bottom:2rem;}
+.loader-bar-wrap{width:220px;height:2px;background:rgba(212,165,116,.15);border-radius:2px;margin:0 auto 1rem;overflow:hidden;}
+.loader-bar{height:100%;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:2px;animation:loaderBarSweep 1.6s ease-in-out infinite;}
+@keyframes loaderBarSweep{0%{transform:translateX(-100%);}100%{transform:translateX(220px);}}
+.loader-sub{font-family:'Montserrat',sans-serif;font-size:.7rem;color:rgba(153,153,153,.6);letter-spacing:.2em;text-transform:uppercase;}
+
+/* ── MOBILE NAV DRAWER ── */
+.mob-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:.25rem;z-index:210;}
+.mob-burger span{display:block;width:22px;height:2px;background:var(--gold);border-radius:2px;transition:transform .3s,opacity .3s;}
+.mob-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mob-burger.open span:nth-child(2){opacity:0;}
+.mob-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-drawer-backdrop{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:500;background:rgba(0,0,0,.85);}
+.mob-drawer-backdrop.open{display:block;}
+.mob-drawer{position:fixed;top:0;right:0;height:100vh;z-index:501;width:78vw;max-width:300px;background:rgba(13,11,9,0.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-left:1px solid rgba(212,165,116,.35);box-shadow:-12px 0 50px rgba(0,0,0,.9);padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:.25rem;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.mob-drawer.open{transform:translateX(0);}
+.mob-drawer-link{background:none;border:none;color:var(--txt2);font-family:'Montserrat',sans-serif;font-size:.95rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-align:left;padding:.85rem .5rem;border-bottom:1px solid rgba(212,165,116,.08);cursor:pointer;transition:color .2s,padding-left .2s;width:100%;}
+.mob-drawer-link:hover{color:var(--gold);padding-left:1rem;}
+.mob-drawer-link:last-child{border-bottom:none;}
+@media(max-width:480px){.mob-burger{display:flex;}}
 `;
+
+// ── LOADING SCREEN ────────────────────────────────────────────────────────────
+function LoadingScreen({ phase }) {
+  return (
+    <div className={`loader-wrap loader-${phase}`}>
+      <div className="loader-strip top">
+        {[...Array(36)].map((_,i)=><span key={i} className="sprocket"/>)}
+      </div>
+      <div className="loader-centre">
+        <div className="loader-frame">
+          <div className="loader-initials">SS</div>
+          <div className="loader-name">Sunny Sawrav</div>
+          <div className="loader-role">Film Maker · Creative Director · AI Strategist</div>
+          <div className="loader-bar-wrap"><div className="loader-bar"/></div>
+          <div className="loader-sub">Loading experience…</div>
+        </div>
+      </div>
+      <div className="loader-strip bottom">
+        {[...Array(36)].map((_,i)=><span key={i} className="sprocket"/>)}
+      </div>
+    </div>
+  );
+}
+
+// ── MOBILE NAV DRAWER ─────────────────────────────────────────────────────────
+function MobileNav({ go }) {
+  const [open, setOpen] = useState(false);
+  const sections = ["about","featured","showreel","experience","skills","achievements","gallery","random","contact"];
+  const labels = {about:"About",featured:"Featured Projects",showreel:"Showreel",experience:"Experience",skills:"Skills",achievements:"Achievements",gallery:"Gallery",random:"GameSlime",contact:"Contact"};
+
+  useEffect(()=>{
+    document.body.style.overflow = open ? 'hidden' : '';
+    return ()=>{ document.body.style.overflow=''; };
+  },[open]);
+
+  const handleNav = id => { go(id); setOpen(false); };
+
+  return (
+    <>
+      <button className={`mob-burger ${open?'open':''}`} onClick={()=>setOpen(v=>!v)} aria-label="Menu">
+        <span/><span/><span/>
+      </button>
+      <div className={`mob-drawer-backdrop ${open?'open':''}`} onClick={()=>setOpen(false)}/>
+      <div className={`mob-drawer ${open?'open':''}`}>
+        <button onClick={()=>setOpen(false)} style={{position:'absolute',top:'1rem',right:'1rem',background:'rgba(212,165,116,.1)',border:'1px solid rgba(212,165,116,.3)',color:'#d4a574',width:'2rem',height:'2rem',borderRadius:'50%',cursor:'pointer',fontSize:'1.2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>×</button>
+        {sections.map(s=>(
+          <button key={s} className="mob-drawer-link" onClick={()=>handleNav(s)}>{labels[s]}</button>
+        ))}
+      </div>
+    </>
+  );
+}
 
 // ── SCENE ─────────────────────────────────────────────────────────────────────
 function Scene({ onNodeClick }) {
@@ -495,7 +590,7 @@ function Scene({ onNodeClick }) {
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
-      const dt = clock.getDelta ? 0.016 : 0.016;
+
 
       // Intro zoom
       if (introProgress < 1) {
@@ -588,7 +683,7 @@ function Scene({ onNodeClick }) {
 
 // ── PANEL CONTENT ─────────────────────────────────────────────────────────────
 function PanelContent({ id, siteData, gsVideos, gsLoading, lightboxSet, activeVid, setActiveVid }) {
-  const { hero, featured, experience, skills, achievements } = siteData;
+  const { hero, featured, experience, skills } = siteData;
 
   if (id==="about") return (
     <>
@@ -705,8 +800,18 @@ export default function App() {
   const [gsVideos, setGsVideos] = useState([]);
   const [gsLoading, setGsLoading] = useState(true);
   const [gsError, setGsError] = useState(false);
-  const [siteData, setSiteData] = useState(FALLBACK);
+  const [siteData, setSiteData] = useState({...FALLBACK, featured: FEATURED_FALLBACK});
   const [dataLoading, setDataLoading] = useState(true);
+
+  // ── Loader phases: 'enter' → 'exit' → null (unmounted)
+  const [loaderPhase, setLoaderPhase] = useState('enter');
+  const loaderDismissed = useRef(false);
+  const dismissLoader = useCallback(()=>{
+    if (loaderDismissed.current) return;
+    loaderDismissed.current = true;
+    setLoaderPhase('exit');
+    setTimeout(()=>setLoaderPhase(null), 750);
+  },[]);
 
   const go = id => document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
   const { hero, featured, experience, skills, achievements, gallery } = siteData;
@@ -715,6 +820,7 @@ export default function App() {
   const handleNodeClick = useCallback(id => setActivePanel(id), []);
 
   useEffect(()=>{
+    const minWait = new Promise(r=>setTimeout(r,2200));
     async function fetchAll(){
       try {
         const [h,f,e,s,a,g] = await Promise.all([
@@ -725,12 +831,12 @@ export default function App() {
           client.fetch(`*[_type=="achievement"]|order(order asc)`),
           client.fetch(`*[_type=="gallery"]|order(order asc){_id,caption,order,"imageUrl":coalesce(imageUrl,image.asset->url)}`),
         ]);
-        setSiteData({hero:h||FALLBACK.hero,featured:f||[],experience:e||[],skills:s||[],achievements:a||[],gallery:g||[]});
+        setSiteData({hero:h||FALLBACK.hero,featured:(f&&f.length)?f:FEATURED_FALLBACK,experience:e||[],skills:s||[],achievements:a||[],gallery:g||[]});
       } catch(err){console.error(err);}
       finally{setDataLoading(false);}
     }
-    fetchAll();
-  },[]);
+    Promise.all([fetchAll(),minWait]).then(()=>dismissLoader());
+  },[dismissLoader]);
 
   useEffect(()=>{
     fetchChannelData(CHANNEL_ID)
@@ -743,6 +849,7 @@ export default function App() {
   return (
     <>
       <style>{css}</style>
+      {loaderPhase && <LoadingScreen phase={loaderPhase}/>}
       <div className="w">
 
         {/* LIGHTBOX */}
@@ -763,7 +870,10 @@ export default function App() {
               ))}
             </div>
           )}
-          <div className="view-toggle">
+          <div style={{display:'flex',alignItems:'center',gap:'.75rem'}}>
+            {!isImmersive && <MobileNav go={go}/>}
+            <a href={`${process.env.PUBLIC_URL}/Sunny_Sawrav_Resume.pdf`} download style={{display:"inline-flex",alignItems:"center",gap:".4rem",padding:".4rem 1rem",background:"transparent",border:"1px solid rgba(212,165,116,.5)",borderRadius:"6px",color:"#d4a574",fontFamily:"Montserrat,sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:"1px",textTransform:"uppercase",textDecoration:"none",whiteSpace:"nowrap"}} onMouseOver={e=>e.currentTarget.style.background="rgba(212,165,116,.1)"} onMouseOut={e=>e.currentTarget.style.background="transparent"}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#d4a574" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>CV</a>
+            <div className="view-toggle">
             <span className={`toggle-label ${!isImmersive?'active':''}`}>Classic</span>
             <label className="toggle-switch">
               <input type="checkbox" checked={isImmersive} onChange={()=>setView(v=>v==='immersive'?'classic':'immersive')}/>
@@ -771,6 +881,7 @@ export default function App() {
               <div className={`toggle-thumb ${isImmersive?'on':''}`}/>
             </label>
             <span className={`toggle-label ${isImmersive?'active':''}`}>Immersive</span>
+          </div>
           </div>
         </nav>
 

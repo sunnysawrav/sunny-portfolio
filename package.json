@@ -2,7 +2,7 @@
   "name": "sunny-portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sunnysawrav.github.io/sunny-portfolio",
+  "homepage": "https://sunnysawrav.com",
   "dependencies": {
     "@sanity/client": "^7.17.0",
     "@testing-library/dom": "^10.4.1",
