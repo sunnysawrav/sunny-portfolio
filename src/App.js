@@ -65,7 +65,6 @@ const FbIco=()=><Ico size={22} d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4
 const TwIco=()=><Ico size={22} d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>;
 const ExtIco=()=><Ico size={26} d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>;
 const ChkIco=()=><Ico size={16} d="M20 6L9 17l-5-5"/>;
-const PlayIco=()=><svg width="56" height="56" viewBox="0 0 24 24" fill="#2a2420" style={{filter:"drop-shadow(0 4px 8px rgba(0,0,0,.2))"}}><polygon points="5,3 19,12 5,21"/></svg>;
 const SmPlayIco=()=><svg width="36" height="36" viewBox="0 0 24 24" fill="#2a2420" style={{filter:"drop-shadow(0 2px 4px rgba(0,0,0,.2))"}}><polygon points="5,3 19,12 5,21"/></svg>;
 
 // ── NODES ─────────────────────────────────────────────────────────────────────
@@ -136,134 +135,165 @@ canvas{display:block;width:100%!important;height:100%!important;}
 .glass-close:hover{background:rgba(26,22,18,.12);}
 .glass-body{padding:1.5rem 2rem 2rem;}
 
+/* ── CLASSIC MODE — SCHEMATIC REDESIGN ── */
+/* Dot grid background on body for classic mode */
+.classic-mode{background-image:radial-gradient(circle,rgba(26,22,18,.16) 1.2px,transparent 1.2px);background-size:24px 24px;background-color:var(--bg);}
+
+/* Section micro system labels */
+.sys-line{display:flex;align-items:center;gap:8px;margin-bottom:.5rem;}
+.sys-dot{width:4px;height:4px;border-radius:50%;background:var(--ink3);flex-shrink:0;}
+.sys-bar{flex:1;height:1px;background:var(--bdr);}
+.sys-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+
+/* Corner bracket marks on cards */
+.cm-wrap{position:relative;}
+.cm-wrap::before,.cm-wrap::after{content:'';position:absolute;width:10px;height:10px;border-color:rgba(26,22,18,.25);border-style:solid;pointer-events:none;}
+.cm-wrap::before{top:0;left:0;border-width:1px 0 0 1px;}
+.cm-wrap::after{top:0;right:0;border-width:1px 1px 0 0;}
+.cm-wrap-b::before,.cm-wrap-b::after{content:'';position:absolute;width:10px;height:10px;border-color:rgba(26,22,18,.25);border-style:solid;pointer-events:none;}
+.cm-wrap-b::before{bottom:0;left:0;border-width:0 0 1px 1px;}
+.cm-wrap-b::after{bottom:0;right:0;border-width:0 1px 1px 0;}
+
 /* ── HERO ── */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:7rem 2rem 4rem;text-align:center;position:relative;}
-.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(90,74,58,.04) 0%,transparent 70%);pointer-events:none;}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;background:transparent;padding:7rem 2rem 4rem;text-align:center;position:relative;border-bottom:1px solid var(--bdr);}
 .hero-in{max-width:900px;animation:fadeUp .9s ease-out;position:relative;z-index:1;}
-.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1.5rem;background:rgba(26,22,18,.06);border:1px solid var(--bdr);border-radius:2px;margin-bottom:2rem;font-size:.8rem;color:var(--ink3);font-weight:600;letter-spacing:1px;font-family:'Montserrat',sans-serif;text-transform:uppercase;}
-.hname{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:700;margin-bottom:1rem;color:var(--ink);line-height:1.2;}
-.htag{font-family:'Montserrat',sans-serif;font-size:clamp(.9rem,2vw,1.2rem);color:var(--ink3);margin-bottom:1.5rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;}
-.hdesc{font-size:1.05rem;color:var(--ink3);max-width:700px;margin:0 auto 2rem;line-height:1.9;}
-.stats{display:flex;align-items:center;justify-content:center;gap:3rem;margin:3rem 0;}
-.sn{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--ink);line-height:1;}
-.sl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:.5rem;font-family:'Montserrat',sans-serif;}
-.sdiv{width:1px;height:60px;background:var(--bdr);}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1.2rem;background:rgba(26,22,18,.04);border:1px solid var(--bdr);margin-bottom:1.5rem;font-size:.78rem;color:var(--ink3);font-weight:700;letter-spacing:2px;font-family:'Montserrat',sans-serif;text-transform:uppercase;}
+.hname{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:700;margin-bottom:1rem;color:var(--ink);line-height:1.1;}
+.htag{font-family:'Montserrat',sans-serif;font-size:clamp(.78rem,2vw,1rem);color:var(--ink3);margin-bottom:1.5rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;}
+.hdesc{font-size:1rem;color:var(--ink3);max-width:600px;margin:0 auto 2rem;line-height:1.9;}
+.stats{display:flex;align-items:stretch;justify-content:center;gap:0;margin:2.5rem auto;border:1px solid var(--bdr);max-width:380px;}
+.sn{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700;color:var(--ink);line-height:1;}
+.sl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:.4rem;font-family:'Montserrat',sans-serif;font-weight:700;}
+.sdiv{width:1px;background:var(--bdr);align-self:stretch;}
+.stat-cell{flex:1;padding:1.25rem 2rem;text-align:center;}
 .ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-.bp{background:var(--ink);color:var(--paper);padding:.9rem 2.5rem;font-size:.85rem;font-weight:700;border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:transform .3s,box-shadow .3s;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:1.5px;}
-.bp:hover{transform:translateY(-2px);box-shadow:3px 3px 0 rgba(26,22,18,.15);}
-.bs{border:1px solid var(--ink);color:var(--ink);background:transparent;padding:.9rem 2.5rem;font-size:.85rem;font-weight:700;border-radius:2px;cursor:pointer;transition:background .3s,transform .3s;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:1.5px;}
-.bs:hover{background:rgba(26,22,18,.06);transform:translateY(-2px);}
+.bp{background:var(--ink);color:var(--paper);padding:.85rem 2.2rem;font-size:.75rem;font-weight:700;border:1px solid var(--ink);border-radius:0;cursor:pointer;transition:transform .2s,box-shadow .2s;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:2px;}
+.bp:hover{transform:translateY(-2px);box-shadow:3px 3px 0 rgba(26,22,18,.12);}
+.bs{border:1px solid var(--bdr);color:var(--ink);background:transparent;padding:.85rem 2.2rem;font-size:.75rem;font-weight:700;border-radius:0;cursor:pointer;transition:background .2s,transform .2s;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:2px;}
+.bs:hover{background:rgba(26,22,18,.05);transform:translateY(-2px);}
 
 /* ── SECTIONS ── */
-.sec{padding:6rem 2rem;background:var(--bg);}.alt{background:var(--bg2);}
-.inn{max-width:1400px;margin:0 auto;}
-.shd{text-align:center;margin-bottom:4rem;}
-.stitle{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:700;color:var(--ink);margin-bottom:1rem;}
-.ul{width:60px;height:1px;background:var(--ink3);margin:0 auto;}
+.sec{padding:5rem 2rem;background:transparent;border-bottom:1px solid var(--bdr);}
+.alt{background:rgba(26,22,18,.02);}
+.inn{max-width:1200px;margin:0 auto;}
+.shd{margin-bottom:3rem;}
+.stitle{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--ink);margin-top:.5rem;}
+.ul{width:40px;height:1px;background:var(--ink3);margin-top:.75rem;}
 
 /* ── ABOUT ── */
-.about-wrap{max-width:1000px;margin:0 auto;text-align:center;}
-.abio{font-size:1.05rem;line-height:2;color:var(--ink3);margin-bottom:2rem;}
-.apersonal{font-size:1.05rem;line-height:1.9;color:var(--ink3);font-style:italic;padding:1.5rem 2rem;border-left:2px solid var(--ink3);background:rgba(26,22,18,.03);border-radius:0 2px 2px 0;text-align:left;max-width:700px;margin:0 auto;}
+.about-wrap{max-width:820px;}
+.abio{font-size:.98rem;line-height:1.95;color:var(--ink3);margin-bottom:1.75rem;}
+.apersonal{font-size:.93rem;line-height:1.85;color:var(--ink3);font-style:italic;padding:1rem 1.5rem;border-left:2px solid var(--ink3);background:rgba(26,22,18,.03);text-align:left;margin-bottom:1.5rem;}
+.about-stats{display:flex;border:1px solid var(--bdr);max-width:340px;margin-top:1.5rem;}
+.about-stat{flex:1;padding:1rem 1.5rem;text-align:center;}
+.about-stat+.about-stat{border-left:1px solid var(--bdr);}
+.about-stat-n{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--ink);}
+.about-stat-l{font-family:'Montserrat',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
 
-/* ── GALLERY ── */
+/* ── GALLERY PAGINATION ── */
+.gal-pagination{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--bdr);}
+.gal-pg-btn{background:transparent;border:1px solid var(--bdr);color:var(--ink3);font-family:'Montserrat',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.45rem 1rem;cursor:pointer;transition:background .2s,color .2s;}
+.gal-pg-btn:hover:not(:disabled){background:rgba(26,22,18,.06);color:var(--ink);}
+.gal-pg-btn:disabled{opacity:.3;cursor:default;}
+.gal-pg-count{font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:3px;color:var(--muted);}
+.gal-pg-bar{width:120px;height:1px;background:var(--bdr);position:relative;}
+.gal-pg-bar-fill{position:absolute;left:0;top:0;height:100%;background:var(--ink3);transition:width .3s;}
 .gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
-.gal-item{overflow:hidden;border-radius:2px;aspect-ratio:4/3;cursor:pointer;background:#ddd;border:1px solid var(--bdr);}
-.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s;}
-.gal-item:hover img{transform:scale(1.05);}
+.gal-item{overflow:hidden;aspect-ratio:4/3;cursor:pointer;background:#ddd;border:1px solid var(--bdr);position:relative;}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .4s;filter:grayscale(100%);}
+.gal-item:hover img{transform:scale(1.04);filter:grayscale(0%);}
 
 /* ── FEATURED ── */
-.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:2rem;}
-.pc{background:var(--paper);border:1px solid var(--bdr);border-radius:2px;overflow:hidden;transition:transform .3s,box-shadow .3s;}
-.pc:hover{transform:translateY(-3px);box-shadow:4px 4px 0 rgba(26,22,18,.08);}
-.vw{position:relative;width:100%;padding-bottom:56.25%;background:#ddd;}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:2rem;}
+.pc{background:rgba(26,22,18,.02);border:1px solid var(--bdr);overflow:visible;transition:transform .2s;position:relative;}
+.pc:hover{transform:translateY(-2px);}
+.vw{position:relative;width:100%;padding-bottom:56.25%;background:var(--ink);}
 .vw iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
-.tw{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer;overflow:hidden;background:#ccc;}
-.tw img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:grayscale(20%);}
-.tw:hover img{transform:scale(1.03);}
-.pov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(240,236,228,.45);transition:background .3s;}
-.tw:hover .pov{background:rgba(240,236,228,.25);}
-.pi{padding:1.5rem;}
-.pm{display:flex;justify-content:space-between;margin-bottom:.75rem;}
-.pt{font-size:.75rem;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;}
-.py{font-size:.75rem;color:var(--muted);font-family:'Montserrat',sans-serif;}
-.pttl{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:.6rem;}
-.pd{font-size:.9rem;color:var(--ink3);line-height:1.7;margin-bottom:.75rem;}
-.pr{display:flex;align-items:center;gap:.5rem;padding:.6rem .75rem;background:rgba(26,22,18,.04);border-left:2px solid var(--ink3);border-radius:0 2px 2px 0;font-size:.82rem;color:var(--ink3);}
+.tw{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer;overflow:hidden;background:var(--ink);}
+.tw img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .4s;filter:grayscale(100%);}
+.tw:hover img{transform:scale(1.03);filter:grayscale(0%);}
+.pov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,22,18,.3);transition:background .3s;}
+.tw:hover .pov{background:rgba(26,22,18,.15);}
+.feat-play{width:44px;height:44px;border:1.5px solid rgba(240,236,228,.4);display:flex;align-items:center;justify-content:center;}
+.pi{padding:1.25rem;}
+.pm{display:flex;justify-content:space-between;margin-bottom:.5rem;}
+.pt{font-size:.65rem;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;}
+.py{font-size:.65rem;color:var(--muted);font-family:'Montserrat',sans-serif;}
+.pttl{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--ink);margin-bottom:.5rem;}
+.pd{font-size:.85rem;color:var(--ink3);line-height:1.65;margin-bottom:.75rem;}
+.pr{display:flex;align-items:center;gap:.5rem;padding:.45rem .75rem;border-left:2px solid var(--ink3);background:rgba(26,22,18,.03);font-size:.78rem;color:var(--ink3);}
 
 /* ── SHOWREEL ── */
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5rem;}
-.si{position:relative;border-radius:2px;overflow:hidden;cursor:pointer;transition:transform .3s;background:var(--paper);border:1px solid var(--bdr);}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.25rem;}
+.si{position:relative;overflow:hidden;cursor:pointer;transition:transform .2s;background:rgba(26,22,18,.02);border:1px solid var(--bdr);}
 .si:hover{transform:scale(1.02);}
 .siw{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:#ccc;}
-.siw img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s;}
+.siw img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%);transition:filter .4s;}
 .si:hover .siw img{filter:grayscale(0%);}
-.sov{position:absolute;inset:0;background:rgba(240,236,228,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:var(--ink);}
+.sov{position:absolute;inset:0;background:rgba(26,22,18,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;color:var(--paper);}
 .si:hover .sov{opacity:1;}
 .sinf{padding:.6rem .75rem .75rem;}
-.sttl{font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Montserrat',sans-serif;}
-.svw{font-size:.72rem;color:var(--muted);font-family:'Montserrat',sans-serif;}
+.sttl{font-size:.8rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Montserrat',sans-serif;letter-spacing:.5px;}
+.svw{font-size:.7rem;color:var(--muted);font-family:'Montserrat',sans-serif;letter-spacing:1px;}
 
 /* ── GAMESLIME ── */
-.gs-intro{text-align:center;margin-bottom:2.5rem;}
+.gs-intro{margin-bottom:2.5rem;}
 .gs-label{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--ink);letter-spacing:1px;}
-.gs-desc{color:var(--ink3);font-size:.95rem;line-height:1.7;max-width:600px;margin:.75rem auto 0;}
-.gs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
-.gs-card{background:var(--paper);border:1px solid var(--bdr);border-radius:2px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;}
-.gs-card:hover{transform:translateY(-3px);box-shadow:3px 3px 0 rgba(26,22,18,.08);}
+.gs-desc{color:var(--ink3);font-size:.93rem;line-height:1.7;max-width:580px;margin:.6rem 0 0;}
+.gs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+.gs-card{background:rgba(26,22,18,.02);border:1px solid var(--bdr);overflow:hidden;cursor:pointer;transition:transform .2s;position:relative;}
+.gs-card:hover{transform:translateY(-2px);}
 .gs-thumb{width:100%;aspect-ratio:16/9;position:relative;background:#ccc;overflow:hidden;}
-.gs-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s;filter:grayscale(10%);}
-.gs-card:hover .gs-thumb img{transform:scale(1.04);}
-.gs-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(240,236,228,.45);}
+.gs-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s,filter .4s;filter:grayscale(100%);}
+.gs-card:hover .gs-thumb img{transform:scale(1.04);filter:grayscale(0%);}
+.gs-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(26,22,18,.35);}
 .gs-info{padding:.85rem 1rem;}
-.gs-ttl{font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:.3rem;font-family:'Montserrat',sans-serif;}
-.gs-dur{font-size:.75rem;color:var(--muted);font-family:'Montserrat',sans-serif;}
+.gs-ttl{font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;font-family:'Montserrat',sans-serif;letter-spacing:.5px;}
+.gs-dur{font-size:.72rem;color:var(--muted);font-family:'Montserrat',sans-serif;letter-spacing:1px;}
 
-/* ── TIMELINE ── */
-.tl{position:relative;max-width:900px;margin:0 auto;}
-.tl::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--bdr);transform:translateX(-50%);}
-.tli{position:relative;margin-bottom:3rem;}
-.tli:nth-child(odd) .tlc{margin-left:calc(50% + 2rem);}
-.tli:nth-child(even) .tlc{margin-right:calc(50% + 2rem);}
-.tlm{position:absolute;left:50%;top:1.5rem;transform:translateX(-50%);width:2.5rem;height:2.5rem;background:var(--paper);border:1px solid var(--bdr);border-radius:2px;display:flex;align-items:center;justify-content:center;z-index:1;color:var(--ink3);}
-.tlc{background:var(--paper);border:1px solid var(--bdr);border-radius:2px;transition:transform .3s,box-shadow .3s;}
-.tlc:hover{transform:translateY(-3px);box-shadow:3px 3px 0 rgba(26,22,18,.08);}
-.tlin{padding:1.5rem;}
-.tlp{font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;}
-.tlr{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--ink);margin:.4rem 0;}
-.tlco{font-size:1rem;color:var(--ink3);margin-bottom:.75rem;}
-.tld{color:var(--ink3);line-height:1.7;margin-bottom:.75rem;font-size:.9rem;}
-.tla{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;background:rgba(26,22,18,.04);border-left:2px solid var(--ink3);border-radius:0 2px 2px 0;font-size:.82rem;color:var(--ink3);}
+/* ── TIMELINE — left-rail schematic style ── */
+.tl{position:relative;max-width:820px;}
+.tl::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:var(--bdr);}
+.tli{position:relative;padding-left:56px;margin-bottom:2rem;}
+.tlm{position:absolute;left:0;top:1.2rem;width:37px;height:37px;border:1px solid var(--bdr);background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--ink3);}
+.tlc{background:rgba(26,22,18,.02);border:1px solid var(--bdr);transition:transform .2s;position:relative;}
+.tlc:hover{transform:translateY(-2px);}
+.tlin{padding:1.25rem;}
+.tlp{font-size:.62rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;margin-bottom:.4rem;}
+.tlr{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;}
+.tlco{font-size:.9rem;color:var(--ink3);margin-bottom:.6rem;}
+.tld{color:var(--ink3);line-height:1.65;font-size:.85rem;margin-bottom:.5rem;}
+.tla{display:flex;align-items:center;gap:.5rem;padding:.42rem .75rem;border-left:2px solid var(--ink3);background:rgba(26,22,18,.03);font-size:.78rem;color:var(--ink3);margin-top:.5rem;}
 
 /* ── SKILLS ── */
-.skg{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:2rem;}
-.skc{background:var(--paper);border:1px solid var(--bdr);border-radius:2px;padding:2rem;transition:transform .3s,box-shadow .3s;}
-.skc:hover{transform:translateY(-3px);box-shadow:3px 3px 0 rgba(26,22,18,.08);}
-.skh{font-family:'Montserrat',sans-serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:1.25rem;text-transform:uppercase;letter-spacing:1.5px;}
-.skt{display:flex;flex-wrap:wrap;gap:.5rem;}
-.sktg{padding:.35rem .85rem;background:rgba(26,22,18,.05);border:1px solid var(--bdr);border-radius:2px;font-size:.8rem;color:var(--ink3);transition:background .2s,color .2s;cursor:default;font-family:'Montserrat',sans-serif;}
-.sktg:hover{background:rgba(26,22,18,.1);color:var(--ink);}
+.skg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.skc{background:rgba(26,22,18,.02);border:1px solid var(--bdr);padding:1.5rem;transition:transform .2s;position:relative;}
+.skc:hover{transform:translateY(-2px);}
+.skh{font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:700;color:var(--ink);margin-bottom:1rem;text-transform:uppercase;letter-spacing:2px;}
+.skt{display:flex;flex-wrap:wrap;gap:.4rem;}
+.sktg{padding:.3rem .75rem;background:rgba(26,22,18,.04);border:1px solid var(--bdr);font-size:.75rem;color:var(--ink3);font-family:'Montserrat',sans-serif;letter-spacing:.5px;}
+.sktg:hover{background:rgba(26,22,18,.08);color:var(--ink);}
 
 /* ── ACHIEVEMENTS ── */
-.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:2rem;}
-.ac{background:var(--paper);border:1px solid var(--bdr);border-radius:2px;padding:2rem;text-align:center;transition:transform .3s,box-shadow .3s;}
-.ac:hover{transform:translateY(-3px);box-shadow:3px 3px 0 rgba(26,22,18,.08);}
-.at{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin:.75rem 0 .5rem;}
-.ad{color:var(--ink3);line-height:1.6;margin-bottom:.75rem;font-size:.9rem;}
-.ay{font-size:.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;}
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.ac{background:rgba(26,22,18,.02);border:1px solid var(--bdr);padding:1.75rem;text-align:center;transition:transform .2s;position:relative;}
+.ac:hover{transform:translateY(-2px);}
+.at{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);margin:.75rem 0 .5rem;}
+.ad{color:var(--ink3);line-height:1.6;margin-bottom:.75rem;font-size:.85rem;}
+.ay{font-size:.65rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-family:'Montserrat',sans-serif;}
 
 /* ── CONTACT ── */
-.cw{max-width:800px;margin:0 auto;text-align:center;}
-.ct{font-size:1.05rem;color:var(--ink3);line-height:1.9;margin-bottom:3rem;}
-.cl{display:flex;flex-direction:column;gap:1.5rem;align-items:center;}
-.ci{display:flex;align-items:center;gap:1rem;font-size:1rem;color:var(--ink3);transition:transform .3s;}
-.ci:hover{transform:translateX(5px);}
-.ci a{color:var(--ink);text-decoration:none;font-weight:600;transition:color .2s;}
+.cw{max-width:700px;}
+.ct{font-size:.98rem;color:var(--ink3);line-height:1.9;margin-bottom:2.5rem;}
+.cl{display:flex;flex-direction:column;gap:1.25rem;}
+.ci{display:flex;align-items:center;gap:1rem;font-size:.95rem;color:var(--ink3);transition:transform .2s;}
+.ci:hover{transform:translateX(4px);}
+.ci a{color:var(--ink);text-decoration:none;font-weight:600;transition:color .2s;font-family:'Montserrat',sans-serif;font-size:.85rem;letter-spacing:.5px;}
 .ci a:hover{color:var(--accent);}
 
-footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:3rem 2rem;text-align:center;}
-.ft{color:var(--muted);font-size:.82rem;margin-bottom:.4rem;font-family:'Montserrat',sans-serif;letter-spacing:1px;text-transform:uppercase;}
-.ftag{color:var(--ink3);font-style:italic;font-family:'Playfair Display',serif;}
+footer{background:rgba(26,22,18,.03);border-top:1px solid var(--bdr);padding:2.5rem 2rem;text-align:center;}
+.ft{color:var(--muted);font-size:.72rem;margin-bottom:.4rem;font-family:'Montserrat',sans-serif;letter-spacing:2px;text-transform:uppercase;}
+.ftag{color:var(--ink3);font-style:italic;font-family:'Playfair Display',serif;font-size:.95rem;}
 
 /* ── PANEL CONTENT (paper style) ── */
 .gp-bio{font-size:1rem;line-height:1.9;color:var(--ink3);margin-bottom:1.5rem;}
@@ -300,8 +330,7 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:3rem 2rem;t
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes slideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-@media(max-width:1024px){.tl::before{left:1.5rem;}.tli:nth-child(odd) .tlc,.tli:nth-child(even) .tlc{margin-left:4rem;margin-right:0;}.tlm{left:1.5rem;}}
-@media(max-width:768px){.sec{padding:4rem 1.5rem;}.fg{grid-template-columns:1fr;}.skg,.ag,.gs-grid{grid-template-columns:1fr;}.ctas{flex-direction:column;width:100%;}.bp,.bs{width:100%;}.stats{gap:2rem;}.sn{font-size:2.5rem;}.classic-links{gap:.75rem;}.classic-links button{font-size:.68rem;}.toggle-label{display:none;}}
+@media(max-width:768px){.sec{padding:3.5rem 1.25rem;}.fg{grid-template-columns:1fr;}.skg,.ag,.gs-grid{grid-template-columns:1fr;}.ctas{flex-direction:column;width:100%;}.bp,.bs{width:100%;}.stats{max-width:100%;}.classic-links{gap:.75rem;}.classic-links button{font-size:.68rem;}.toggle-label{display:none;}.about-stats{max-width:100%;}}
 @media(max-width:480px){.classic-links{display:none;}}
 
 /* ── LOADING SCREEN (paper) ── */
@@ -327,17 +356,25 @@ footer{background:var(--bg2);border-top:1px solid var(--bdr);padding:3rem 2rem;t
 
 /* ── MOBILE NAV DRAWER ── */
 .mob-burger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:.25rem;z-index:210;}
-.mob-burger span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:1px;transition:transform .3s,opacity .3s;}
+.mob-burger span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:0;transition:transform .3s,opacity .3s;}
 .mob-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .mob-burger.open span:nth-child(2){opacity:0;}
 .mob-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.mob-drawer-backdrop{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:500;background:rgba(200,192,180,.6);}
+.mob-drawer-backdrop{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:500;background:rgba(26,22,18,.35);}
 .mob-drawer-backdrop.open{display:block;}
-.mob-drawer{position:fixed;top:0;right:0;height:100vh;z-index:501;width:78vw;max-width:300px;background:var(--paper);border-left:1px solid var(--bdr);box-shadow:-8px 0 40px rgba(26,22,18,.12);padding:5rem 2rem 2rem;display:flex;flex-direction:column;gap:.25rem;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+.mob-drawer{position:fixed;top:0;right:0;height:100vh;z-index:501;width:78vw;max-width:300px;background:var(--bg);background-image:radial-gradient(circle,rgba(26,22,18,.16) 1.2px,transparent 1.2px);background-size:24px 24px;border-left:1px solid var(--bdr);padding:0;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
 .mob-drawer.open{transform:translateX(0);}
-.mob-drawer-link{background:none;border:none;color:var(--ink3);font-family:'Montserrat',sans-serif;font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-align:left;padding:.85rem .5rem;border-bottom:1px solid var(--bdr2);cursor:pointer;transition:color .2s,padding-left .2s;width:100%;}
-.mob-drawer-link:hover{color:var(--ink);padding-left:1rem;}
+.mob-drawer-header{padding:1.25rem 1.25rem .75rem;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;}
+.mob-drawer-sys{display:flex;align-items:center;gap:6px;}
+.mob-drawer-sys-dot{width:4px;height:4px;border-radius:50%;background:var(--ink3);}
+.mob-drawer-sys-label{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+.mob-drawer-close{background:transparent;border:1px solid var(--bdr);color:var(--ink);width:1.75rem;height:1.75rem;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;}
+.mob-drawer-close:hover{background:rgba(26,22,18,.06);}
+.mob-drawer-links{display:flex;flex-direction:column;padding:.5rem 0;flex:1;overflow-y:auto;}
+.mob-drawer-link{background:none;border:none;border-bottom:1px solid var(--bdr2);color:var(--ink3);font-family:'Montserrat',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;text-align:left;padding:.9rem 1.25rem;cursor:pointer;transition:color .2s,background .2s;width:100%;display:flex;align-items:center;gap:.75rem;}
+.mob-drawer-link:hover{color:var(--ink);background:rgba(26,22,18,.04);}
 .mob-drawer-link:last-child{border-bottom:none;}
+.mob-drawer-link-num{font-size:8px;color:var(--muted);letter-spacing:1px;flex-shrink:0;}
 @media(max-width:480px){.mob-burger{display:flex;}}
 
 /* ── CV BUTTON ── */
@@ -388,10 +425,21 @@ function MobileNav({ go }) {
       </button>
       <div className={`mob-drawer-backdrop ${open?'open':''}`} onClick={()=>setOpen(false)}/>
       <div className={`mob-drawer ${open?'open':''}`}>
-        <button onClick={()=>setOpen(false)} style={{position:'absolute',top:'1rem',right:'1rem',background:'rgba(26,22,18,.06)',border:'1px solid rgba(26,22,18,.15)',color:'var(--ink)',width:'2rem',height:'2rem',borderRadius:'2px',cursor:'pointer',fontSize:'1.2rem',display:'flex',alignItems:'center',justifyContent:'center'}}>×</button>
-        {sections.map(s=>(
-          <button key={s} className="mob-drawer-link" onClick={()=>handleNav(s)}>{labels[s]}</button>
-        ))}
+        <div className="mob-drawer-header">
+          <div className="mob-drawer-sys">
+            <div className="mob-drawer-sys-dot"/>
+            <span className="mob-drawer-sys-label">Nav · Menu · SYS</span>
+          </div>
+          <button className="mob-drawer-close" onClick={()=>setOpen(false)}>×</button>
+        </div>
+        <div className="mob-drawer-links">
+          {sections.map((s,i)=>(
+            <button key={s} className="mob-drawer-link" onClick={()=>handleNav(s)}>
+              <span className="mob-drawer-link-num">{String(i+1).padStart(2,'0')}</span>
+              {labels[s]}
+            </button>
+          ))}
+        </div>
       </div>
     </>
   );
@@ -954,7 +1002,7 @@ function PanelContent({ id, siteData, gsVideos, gsLoading, lightboxSet, activeVi
   if (id==="gallery") return (
     <div className="gp-gal">
       {siteData.gallery.map(g=>(
-        <div key={g._id} className="gp-gal-item" onClick={()=>lightboxSet(g.imageUrl)}>
+        <div key={g._id} className="gp-gal-item" onClick={()=>lightboxSet({url:g.imageUrl,caption:g.caption})}>
           <img src={g.imageUrl} alt={g.caption||"Gallery"} onError={e=>{e.target.parentElement.style.background='#ccc';e.target.style.display='none';}}/>
         </div>
       ))}
@@ -990,6 +1038,9 @@ export default function App() {
   const [activePanel, setActivePanel] = useState(null);
   const [activeVid, setActiveVid] = useState(null);
   const [lightbox, setLightbox] = useState(null);
+  // lightbox = { url, caption, index, all } | null
+  const [galPage, setGalPage] = useState(0);
+  const GAL_PER_PAGE = 9;
   const [gsVideos, setGsVideos] = useState([]);
   const [gsLoading, setGsLoading] = useState(true);
   const [gsError, setGsError] = useState(false);
@@ -1046,9 +1097,32 @@ export default function App() {
 
         {/* LIGHTBOX */}
         {lightbox&&(
-          <div onClick={()=>setLightbox(null)} style={{position:"fixed",inset:0,zIndex:999,background:"rgba(200,192,180,.85)",display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out",padding:"1rem"}}>
-            <img src={lightbox} alt="Gallery" style={{maxWidth:"95vw",maxHeight:"95vh",objectFit:"contain",borderRadius:"2px",border:"1px solid rgba(26,22,18,.15)"}} onClick={e=>e.stopPropagation()}/>
-            <button onClick={()=>setLightbox(null)} style={{position:"fixed",top:"1.5rem",right:"1.5rem",background:"var(--paper)",border:"1px solid rgba(26,22,18,.2)",color:"var(--ink)",fontSize:"1.2rem",width:"2.5rem",height:"2.5rem",borderRadius:"2px",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>×</button>
+          <div onClick={()=>setLightbox(null)} style={{position:"fixed",inset:0,zIndex:999,background:"rgba(26,22,18,.92)",display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out",padding:"1rem"}}>
+            {/* Prev arrow */}
+            {lightbox.all&&lightbox.index>0&&(
+              <button onClick={e=>{e.stopPropagation();const i=lightbox.index-1;const g=lightbox.all[i];setLightbox({url:g.imageUrl,caption:g.caption,index:i,all:lightbox.all});}} style={{position:"fixed",left:"1.5rem",top:"50%",transform:"translateY(-50%)",background:"rgba(240,236,228,.06)",border:"1px solid rgba(240,236,228,.15)",color:"#f0ece4",width:"2.5rem",height:"2.5rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Montserrat',sans-serif",fontSize:".7rem",fontWeight:700,letterSpacing:"1px"}}>←</button>
+            )}
+            {/* Image + caption */}
+            <div style={{position:"relative",maxWidth:"90vw",maxHeight:"90vh",display:"flex",flexDirection:"column"}} onClick={e=>e.stopPropagation()}>
+              {/* Index label */}
+              {lightbox.all&&(
+                <div style={{position:"absolute",top:"-1.75rem",right:0,fontFamily:"'Montserrat',sans-serif",fontSize:"9px",fontWeight:700,letterSpacing:"3px",textTransform:"uppercase",color:"rgba(240,236,228,.4)"}}>
+                  IMG · {String(lightbox.index+1).padStart(2,'0')} / {String(lightbox.all.length).padStart(2,'0')}
+                </div>
+              )}
+              <img src={lightbox.url} alt={lightbox.caption||"Gallery"} style={{maxWidth:"90vw",maxHeight:"80vh",objectFit:"contain",display:"block",border:"1px solid rgba(240,236,228,.1)"}} onError={e=>{e.target.style.display="none";}}/>
+              {lightbox.caption&&(
+                <div style={{background:"rgba(26,22,18,.8)",padding:".6rem 1rem",borderTop:"1px solid rgba(240,236,228,.1)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                  <span style={{fontFamily:"'Montserrat',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:"2px",textTransform:"uppercase",color:"rgba(240,236,228,.65)"}}>{lightbox.caption}</span>
+                </div>
+              )}
+            </div>
+            {/* Next arrow */}
+            {lightbox.all&&lightbox.index<lightbox.all.length-1&&(
+              <button onClick={e=>{e.stopPropagation();const i=lightbox.index+1;const g=lightbox.all[i];setLightbox({url:g.imageUrl,caption:g.caption,index:i,all:lightbox.all});}} style={{position:"fixed",right:"1.5rem",top:"50%",transform:"translateY(-50%)",background:"rgba(240,236,228,.06)",border:"1px solid rgba(240,236,228,.15)",color:"#f0ece4",width:"2.5rem",height:"2.5rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Montserrat',sans-serif",fontSize:".7rem",fontWeight:700,letterSpacing:"1px"}}>→</button>
+            )}
+            {/* Close */}
+            <button onClick={()=>setLightbox(null)} style={{position:"fixed",top:"1.5rem",right:"1.5rem",background:"rgba(240,236,228,.06)",border:"1px solid rgba(240,236,228,.15)",color:"#f0ece4",fontSize:"1.1rem",width:"2.5rem",height:"2.5rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center"}}>×</button>
           </div>
         )}
 
@@ -1105,16 +1179,22 @@ export default function App() {
         {/* CLASSIC */}
         {!isImmersive&&(
           <>
+            <div className="classic-mode">
             <section className="hero">
               <div className="hero-in">
+                <div className="sys-line" style={{justifyContent:"center",marginBottom:"1.5rem"}}>
+                  <div className="sys-bar" style={{maxWidth:"60px"}}/>
+                  <span className="sys-label">PROFILE · CREATIVE · DIRECTOR · SYS·001</span>
+                  <div className="sys-bar" style={{maxWidth:"60px"}}/>
+                </div>
                 <div className="badge"><FilmIco/><span>{hero.years} Years of Excellence</span></div>
                 <h1 className="hname">{hero.name}</h1>
                 <p className="htag">{hero.tagline}</p>
                 <p className="hdesc">{hero.description}</p>
                 <div className="stats">
-                  <div><div className="sn">{hero.years}</div><div className="sl">Years Experience</div></div>
+                  <div className="stat-cell"><div className="sn">{hero.years}</div><div className="sl">Years Experience</div></div>
                   <div className="sdiv"/>
-                  <div><div className="sn">{hero.projects}</div><div className="sl">Projects Completed</div></div>
+                  <div className="stat-cell"><div className="sn">{hero.projects}</div><div className="sl">Projects Completed</div></div>
                 </div>
                 <div className="ctas">
                   <button className="bp" onClick={()=>go("contact")}>Get In Touch</button>
@@ -1122,16 +1202,205 @@ export default function App() {
                 </div>
               </div>
             </section>
-            <section id="about" className="sec alt"><div className="inn"><div className="shd"><h2 className="stitle">About Me</h2><div className="ul"/></div><div className="about-wrap"><p className="abio">{hero.bio}</p><p className="apersonal">{hero.personal}</p></div></div></section>
-            <section id="featured" className="sec"><div className="inn"><div className="shd"><h2 className="stitle">Featured Projects</h2><div className="ul"/></div>{dataLoading?<p style={{textAlign:"center",color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".85rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:<div className="fg">{featured.map(p=><div key={p._id} className="pc"><div className="vw">{activeVid===p._id?<iframe src={p.embed+"?autoplay=1"} title={p.title} frameBorder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen/>:<div className="tw" onClick={()=>setActiveVid(p._id)}><img src={T(p.vid)} alt={p.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#ccc";}}/><div className="pov"><PlayIco/></div></div>}</div><div className="pi"><div className="pm"><span className="pt">{p.type}</span><span className="py">{p.year}</span></div><h3 className="pttl">{p.title}</h3><p className="pd">{p.desc}</p>{p.award&&<div className="pr"><AwardIco s={16}/><span>{p.award}</span></div>}</div></div>)}</div>}</div></section>
-            <section id="showreel" className="sec alt"><div className="inn"><div className="shd"><h2 className="stitle">Complete Showreel</h2><div className="ul"/></div><div className="sg">{showreel.map(v=><div key={v.id} className="si" onClick={()=>window.open(v.url,"_blank")}><div className="siw"><img src={T(v.vid)} alt={v.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#ccc";}}/><div className="sov"><ExtIco/></div></div><div className="sinf"><div className="sttl">{v.title}</div><div className="svw">{v.views} views</div></div></div>)}</div></div></section>
-            <section id="experience" className="sec"><div className="inn"><div className="shd"><h2 className="stitle">Professional Journey</h2><div className="ul"/></div>{dataLoading?<p style={{textAlign:"center",color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".85rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:<div className="tl">{experience.map(e=><div key={e._id} className="tli"><div className="tlm"><BriefIco/></div><div className="tlc"><div className="tlin"><div className="tlp">{e.period}</div><h3 className="tlr">{e.role}</h3><h4 className="tlco">{e.company}</h4><p className="tld">{e.desc}</p>{e.award&&<div className="tla"><ChkIco/><span>{e.award}</span></div>}</div></div></div>)}</div>}</div></section>
-            <section id="skills" className="sec alt"><div className="inn"><div className="shd"><h2 className="stitle">Skills & Expertise</h2><div className="ul"/></div>{dataLoading?<p style={{textAlign:"center",color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".85rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:<div className="skg">{skills.map(s=><div key={s._id} className="skc"><div className="skh">{s.category}</div><div className="skt">{(s.tags||[]).map((t,i)=><span key={i} className="sktg">{t}</span>)}</div></div>)}</div>}</div></section>
-            <section id="achievements" className="sec"><div className="inn"><div className="shd"><h2 className="stitle">Achievements & Recognition</h2><div className="ul"/></div>{dataLoading?<p style={{textAlign:"center",color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".85rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:<div className="ag">{achievements.map(a=><div key={a._id} className="ac"><AwardIco s={48}/><h3 className="at">{a.title}</h3><p className="ad">{a.desc}</p><span className="ay">{a.year}</span></div>)}</div>}</div></section>
-            <section id="gallery" className="sec alt"><div className="inn"><div className="shd"><h2 className="stitle">Personal Gallery</h2><div className="ul"/></div>{dataLoading?<p style={{textAlign:"center",color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".85rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:<div className="gal-grid">{gallery.map(g=><div key={g._id} className="gal-item" onClick={()=>setLightbox(g.imageUrl)}><img src={g.imageUrl} alt={g.caption||"Gallery"} onError={e=>{e.target.parentElement.style.background="#ccc";e.target.style.display="none";}}/></div>)}</div>}</div></section>
-            <section id="random" className="sec"><div className="inn"><div className="shd"><h2 className="stitle">Random Things</h2><div className="ul"/></div><div className="gs-intro"><div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:"1rem",marginBottom:"0.75rem"}}><img src={GS_LOGO} alt="GameSlime logo" style={{width:52,height:52,borderRadius:"2px",border:"1px solid var(--bdr)",objectFit:"cover",filter:"grayscale(10%)"}}/><span className="gs-label">GameSlime</span></div><p className="gs-desc">When I'm not behind the camera or in the edit suite, I'm gaming.</p></div>{gsLoading&&<p style={{textAlign:"center",color:"var(--muted)",marginTop:"2rem",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading latest videos…</p>}{gsError&&<p style={{textAlign:"center",color:"var(--muted)",marginTop:"2rem"}}>Couldn't load videos. <a href="https://www.youtube.com/@GameSlimeOG" target="_blank" rel="noopener noreferrer" style={{color:"var(--ink)"}}>Visit the channel →</a></p>}{!gsLoading&&!gsError&&<div className="gs-grid">{gsVideos.map(v=><div key={v.id} className="gs-card" onClick={()=>window.open(v.url,"_blank")}><div className="gs-thumb"><img src={v.thumbnail} alt={v.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#ccc";}}/><div className="gs-ov"><SmPlayIco/></div></div><div className="gs-info"><div className="gs-ttl">{v.title}</div><div className="gs-dur">{v.published}</div></div></div>)}</div>}<div style={{textAlign:"center",marginTop:"2rem"}}><a href="https://www.youtube.com/@GameSlimeOG" target="_blank" rel="noopener noreferrer" className="cv-btn" style={{display:"inline-flex"}}>Visit GameSlime Channel →</a></div></div></section>
-            <section id="contact" className="sec alt"><div className="inn"><div className="shd"><h2 className="stitle">Let's Create Together</h2><div className="ul"/></div><div className="cw"><p className="ct">Have a project in mind? Let's discuss how we can bring your creative vision to life.</p><div className="cl"><div className="ci"><PhoneIco/><a href={`tel:${contact.phone}`}>{contact.phone}</a></div><div className="ci"><MailIco/><a href={`mailto:${contact.email}`}>{contact.email}</a></div><div className="ci"><LiIco/><a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></div><div className="ci"><IgIco/><a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></div><div className="ci"><FbIco/><a href={contact.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></div><div className="ci"><TwIco/><a href={contact.twitter} target="_blank" rel="noopener noreferrer">Twitter</a></div></div></div></div></section>
+
+            <section id="about" className="sec alt">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 01 · Identity Profile</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">About Me</h2><div className="ul"/>
+                </div>
+                <div className="about-wrap">
+                  <p className="abio">{hero.bio}</p>
+                  <p className="apersonal">{hero.personal}</p>
+                  <div className="about-stats">
+                    <div className="about-stat"><div className="about-stat-n">{hero.years}</div><div className="about-stat-l">Years</div></div>
+                    <div className="about-stat"><div className="about-stat-n">{hero.projects}</div><div className="about-stat-l">Projects</div></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="featured" className="sec">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 02 · Selected Works</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Featured Projects</h2><div className="ul"/>
+                </div>
+                {dataLoading?<p style={{color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:
+                <div className="fg">{featured.map(p=>(
+                  <div key={p._id} className="pc cm-wrap cm-wrap-b">
+                    <div className="vw">
+                      {activeVid===p._id
+                        ?<iframe src={p.embed+"?autoplay=1"} title={p.title} frameBorder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen/>
+                        :<div className="tw" onClick={()=>setActiveVid(p._id)}>
+                          <img src={T(p.vid)} alt={p.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#1a1612";}}/>
+                          <div className="pov"><div className="feat-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(240,236,228,.8)"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+                        </div>
+                      }
+                    </div>
+                    <div className="pi">
+                      <div className="pm"><span className="pt">{p.type}</span><span className="py">{p.year}</span></div>
+                      <h3 className="pttl">{p.title}</h3>
+                      <p className="pd">{p.desc}</p>
+                      {p.award&&<div className="pr"><AwardIco s={14}/><span>{p.award}</span></div>}
+                    </div>
+                  </div>
+                ))}</div>}
+              </div>
+            </section>
+
+            <section id="showreel" className="sec alt">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 03 · Complete Showreel</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Complete Showreel</h2><div className="ul"/>
+                </div>
+                <div className="sg">{showreel.map(v=>(
+                  <div key={v.id} className="si" onClick={()=>window.open(v.url,"_blank")}>
+                    <div className="siw"><img src={T(v.vid)} alt={v.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#ccc";}}/><div className="sov"><ExtIco/></div></div>
+                    <div className="sinf"><div className="sttl">{v.title}</div><div className="svw">{v.views} views</div></div>
+                  </div>
+                ))}</div>
+              </div>
+            </section>
+
+            <section id="experience" className="sec">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 04 · Professional Record</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Professional Journey</h2><div className="ul"/>
+                </div>
+                {dataLoading?<p style={{color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:
+                <div className="tl">{experience.map(e=>(
+                  <div key={e._id} className="tli">
+                    <div className="tlm"><BriefIco/></div>
+                    <div className="tlc cm-wrap">
+                      <div className="tlin">
+                        <div className="tlp">{e.period}</div>
+                        <h3 className="tlr">{e.role}</h3>
+                        <h4 className="tlco">{e.company}</h4>
+                        <p className="tld">{e.desc}</p>
+                        {e.award&&<div className="tla"><ChkIco/><span>{e.award}</span></div>}
+                      </div>
+                    </div>
+                  </div>
+                ))}</div>}
+              </div>
+            </section>
+
+            <section id="skills" className="sec alt">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 05 · Capabilities</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Skills & Expertise</h2><div className="ul"/>
+                </div>
+                {dataLoading?<p style={{color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:
+                <div className="skg">{skills.map(s=>(
+                  <div key={s._id} className="skc cm-wrap">
+                    <div className="skh">{s.category}</div>
+                    <div className="skt">{(s.tags||[]).map((t,i)=><span key={i} className="sktg">{t}</span>)}</div>
+                  </div>
+                ))}</div>}
+              </div>
+            </section>
+
+            <section id="achievements" className="sec">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 06 · Recognition</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Achievements & Recognition</h2><div className="ul"/>
+                </div>
+                {dataLoading?<p style={{color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:
+                <div className="ag">{achievements.map(a=>(
+                  <div key={a._id} className="ac cm-wrap cm-wrap-b">
+                    <AwardIco s={40}/>
+                    <h3 className="at">{a.title}</h3>
+                    <p className="ad">{a.desc}</p>
+                    <span className="ay">{a.year}</span>
+                  </div>
+                ))}</div>}
+              </div>
+            </section>
+
+            <section id="gallery" className="sec alt">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 07 · Personal Gallery</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Personal Gallery</h2><div className="ul"/>
+                </div>
+                {dataLoading?<p style={{color:"var(--muted)",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading…</p>:(()=>{
+                  const totalPages = Math.ceil(gallery.length / GAL_PER_PAGE);
+                  const pageItems = gallery.slice(galPage * GAL_PER_PAGE, (galPage+1) * GAL_PER_PAGE);
+                  const fillPct = totalPages > 1 ? ((galPage+1)/totalPages*100) : 100;
+                  return (
+                    <>
+                      <div className="gal-grid">{pageItems.map((g,i)=>(
+                        <div key={g._id} className="gal-item" onClick={()=>setLightbox({url:g.imageUrl,caption:g.caption,index:galPage*GAL_PER_PAGE+i,all:gallery})}>
+                          <img src={g.imageUrl} alt={g.caption||"Gallery"} onError={e=>{e.target.parentElement.style.background="#ccc";e.target.style.display="none";}}/>
+                        </div>
+                      ))}</div>
+                      {totalPages > 1 && (
+                        <div className="gal-pagination">
+                          <button className="gal-pg-btn" disabled={galPage===0} onClick={()=>setGalPage(p=>p-1)}>← Prev</button>
+                          <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:".5rem"}}>
+                            <span className="gal-pg-count">{String(galPage+1).padStart(2,'0')} / {String(totalPages).padStart(2,'0')}</span>
+                            <div className="gal-pg-bar"><div className="gal-pg-bar-fill" style={{width:`${fillPct}%`}}/></div>
+                          </div>
+                          <button className="gal-pg-btn" disabled={galPage===totalPages-1} onClick={()=>setGalPage(p=>p+1)}>Next →</button>
+                        </div>
+                      )}
+                    </>
+                  );
+                })()}
+              </div>
+            </section>
+
+            <section id="random" className="sec">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 08 · Random Things</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Random Things</h2><div className="ul"/>
+                </div>
+                <div className="gs-intro">
+                  <div style={{display:"flex",alignItems:"center",gap:"1rem",marginBottom:".6rem"}}>
+                    <img src={GS_LOGO} alt="GameSlime logo" style={{width:48,height:48,border:"1px solid var(--bdr)",objectFit:"cover",filter:"grayscale(10%)"}}/>
+                    <span className="gs-label">GameSlime</span>
+                  </div>
+                  <p className="gs-desc">When I'm not behind the camera or in the edit suite, I'm gaming.</p>
+                </div>
+                {gsLoading&&<p style={{color:"var(--muted)",marginTop:"2rem",fontFamily:"Montserrat,sans-serif",fontSize:".82rem",letterSpacing:"1px",textTransform:"uppercase"}}>Loading latest videos…</p>}
+                {gsError&&<p style={{color:"var(--muted)",marginTop:"2rem"}}>Couldn't load videos. <a href="https://www.youtube.com/@GameSlimeOG" target="_blank" rel="noopener noreferrer" style={{color:"var(--ink)"}}>Visit the channel →</a></p>}
+                {!gsLoading&&!gsError&&<div className="gs-grid">{gsVideos.map(v=>(
+                  <div key={v.id} className="gs-card cm-wrap" onClick={()=>window.open(v.url,"_blank")}>
+                    <div className="gs-thumb"><img src={v.thumbnail} alt={v.title} onError={e=>{e.target.style.display="none";e.target.parentElement.style.background="#ccc";}}/><div className="gs-ov"><SmPlayIco/></div></div>
+                    <div className="gs-info"><div className="gs-ttl">{v.title}</div><div className="gs-dur">{v.published}</div></div>
+                  </div>
+                ))}</div>}
+                <div style={{marginTop:"2rem"}}><a href="https://www.youtube.com/@GameSlimeOG" target="_blank" rel="noopener noreferrer" className="cv-btn" style={{display:"inline-flex"}}>Visit GameSlime Channel →</a></div>
+              </div>
+            </section>
+
+            <section id="contact" className="sec alt">
+              <div className="inn">
+                <div className="shd">
+                  <div className="sys-line"><div className="sys-dot"/><span className="sys-label">Section · 09 · Contact</span><div className="sys-bar"/></div>
+                  <h2 className="stitle">Let's Create Together</h2><div className="ul"/>
+                </div>
+                <div className="cw">
+                  <p className="ct">Have a project in mind? Let's discuss how we can bring your creative vision to life.</p>
+                  <div className="cl">
+                    <div className="ci"><PhoneIco/><a href={`tel:${contact.phone}`}>{contact.phone}</a></div>
+                    <div className="ci"><MailIco/><a href={`mailto:${contact.email}`}>{contact.email}</a></div>
+                    <div className="ci"><LiIco/><a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+                    <div className="ci"><IgIco/><a href={contact.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></div>
+                    <div className="ci"><FbIco/><a href={contact.facebook} target="_blank" rel="noopener noreferrer">Facebook</a></div>
+                    <div className="ci"><TwIco/><a href={contact.twitter} target="_blank" rel="noopener noreferrer">Twitter</a></div>
+                  </div>
+                </div>
+              </div>
+            </section>
             <footer><p className="ft">© 2025 {hero.name} · All Rights Reserved</p><p className="ftag">Crafting stories, one frame at a time.</p></footer>
+            </div>
           </>
         )}
       </div>
