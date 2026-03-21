@@ -313,7 +313,7 @@ footer{background:rgba(26,22,18,.03);border-top:1px solid var(--bdr);padding:2.5
 .gp-ach-year{font-size:.75rem;color:var(--muted);font-weight:700;margin-top:.2rem;font-family:'Montserrat',sans-serif;letter-spacing:1px;}
 .gp-gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;}
 .gp-gal-item{aspect-ratio:4/3;border-radius:2px;overflow:hidden;cursor:pointer;background:#ccc;border:1px solid var(--bdr);}
-.gp-gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s;filter:grayscale(10%);}
+.gp-gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s,filter .4s;filter:grayscale(100%);}
 .gp-gal-item:hover img{transform:scale(1.06);filter:grayscale(0%);}
 .gp-contact{display:flex;flex-direction:column;gap:1rem;}
 .gp-ci{display:flex;align-items:center;gap:1rem;color:var(--ink3);font-size:1rem;}
@@ -321,7 +321,12 @@ footer{background:rgba(26,22,18,.03);border-top:1px solid var(--bdr);padding:2.5
 .gp-vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:1rem;}
 .gp-vid{cursor:pointer;border-radius:2px;overflow:hidden;background:var(--bg2);border:1px solid var(--bdr);transition:transform .3s;}
 .gp-vid:hover{transform:translateY(-2px);}
-.gp-vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:grayscale(10%);}
+.gp-feat-thumb-img{filter:grayscale(100%);transition:filter .4s;}
+.gp-feat-thumb-wrap:hover .gp-feat-thumb-img{filter:grayscale(0%);}
+.gp-feat-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(240,236,228,.45);transition:background .4s;}
+.gp-feat-thumb-wrap:hover .gp-feat-overlay{background:rgba(240,236,228,0);}
+.gp-vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:grayscale(100%);transition:filter .4s;}
+.gp-vid:hover img{filter:grayscale(0%);}
 .gp-vid-info{padding:.5rem .75rem;}
 .gp-vid-title{font-size:.78rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Montserrat',sans-serif;}
 .gp-vid-date{font-size:.7rem;color:var(--muted);font-family:'Montserrat',sans-serif;}
@@ -943,9 +948,9 @@ function PanelContent({ id, siteData, gsVideos, gsLoading, lightboxSet, activeVi
           <div style={{position:'relative',paddingBottom:'56.25%',background:'#ccc',borderRadius:'2px',overflow:'hidden',marginBottom:'.75rem',border:'1px solid var(--bdr)'}}>
             {activeVid===p._id
               ? <iframe style={{position:'absolute',top:0,left:0,width:'100%',height:'100%'}} src={p.embed+"?autoplay=1"} title={p.title} frameBorder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen/>
-              : <div style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',cursor:'pointer'}} onClick={()=>setActiveVid(p._id)}>
-                  <img src={T(p.vid)} alt={p.title} style={{width:'100%',height:'100%',objectFit:'cover',filter:'grayscale(15%)'}} onError={e=>{e.target.style.display='none';e.target.parentElement.style.background='#ccc';}}/>
-                  <div style={{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',background:'rgba(240,236,228,.45)'}}><SmPlayIco/></div>
+              : <div className="gp-feat-thumb-wrap" style={{position:'absolute',top:0,left:0,width:'100%',height:'100%',cursor:'pointer'}} onClick={()=>setActiveVid(p._id)}>
+                  <img src={T(p.vid)} alt={p.title} className="gp-feat-thumb-img" style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>{e.target.style.display='none';e.target.parentElement.style.background='#ccc';}}/>
+                  <div className="gp-feat-overlay"><SmPlayIco/></div>
                 </div>
             }
           </div>
@@ -1001,8 +1006,8 @@ function PanelContent({ id, siteData, gsVideos, gsLoading, lightboxSet, activeVi
   );
   if (id==="gallery") return (
     <div className="gp-gal">
-      {siteData.gallery.map(g=>(
-        <div key={g._id} className="gp-gal-item" onClick={()=>lightboxSet({url:g.imageUrl,caption:g.caption})}>
+      {siteData.gallery.map((g,i)=>(
+        <div key={g._id} className="gp-gal-item" onClick={()=>lightboxSet({url:g.imageUrl,caption:g.caption,index:i,all:siteData.gallery})}>
           <img src={g.imageUrl} alt={g.caption||"Gallery"} onError={e=>{e.target.parentElement.style.background='#ccc';e.target.style.display='none';}}/>
         </div>
       ))}
